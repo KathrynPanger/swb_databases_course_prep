@@ -1,51 +1,6 @@
 import math
 import numpy as np
 
-rename_dict={
-    "s1q2": "scheduled_interview_date",
-    "s1q3": "phone_answer_status",
-    "s1q5": "is_household_member",
-    "call_id": "call_attempt_number",
-    "hhid": "household_id",
-    "s1q1": "phone_number_id",
-    "s1q8": "agree_to_be_interviewed",
-    'indiv': "person_id",
-    's2q7a': 'is_household_head_still_member',
-    's2q8': 'why_person_join_household',
-    's2q2': 'is_new_household_member',
-    's2q3': 'is_still_household_member',
-    's2q5': 'sex',
-    's2q6': 'age',
-    's2q7': 'relationship_to_head',
-    's2q7_os': 'other_relationship',
-    's2q8': 'why_join_household',
-    's2q4': 'why_leave_household',
-    's2q8_os':'other_reason_for_joining',
-    's2q14': 'is_covid_vaccinated',
-    's6q0b_1': 'is_available_to_respond',
-    's6q1_1': 'worked_for_pay_last_week',
-    's6q1a_1': 'has_business_was_absent_last_week',
-    's6q1b_1': 'when_expected_to_return_to_work',
-    's6q1c_1': 'why_not_work_last_week',
-    's6q1c_os_1': 'other_reason_not_work',
-    's6q3a_1': 'tried_to_earn_pay_last_month',
-    's6q3b_1': 'how_tried_to_earn_pay_last_month',
-    's6q3b_os_1': 'other_way_tried_to_earn_pay_last_month',
-    's6q5b_1': 'main_activity_of_employers_business_last_week',
-    's6q6a_1': "family_farm_food_fate",
-    "s6q8b1_1": 'hours_worked_last_week_main_business_activity',
-    's6q9a_1': 'worked_december_2021',
-    's6q9b_1': 'worked_january_2022',
-    's6q9c_1': 'worked_february_2022',
-    's6q9d_1': 'worked_march_2022',
-    's6cq1_1': 'age_started_working',
-    's6cqe2_1': 'is_employed',
-    's6cq5_1': 'years_worked_first_job',
-    's6cq6_1': 'why_left_first_job',
-    's2q15': 'how_many_shots'
-
-
-}
 
 
 
@@ -111,7 +66,7 @@ def recode_phone_answer_status(entry):
             return "NO, PHONE SWITCHED OFF"
 
 
-def recode_speaker_is_household_member(entry):
+def recode_is_household_member(entry):
     # If the entry has missing data, skip it
     if math.isnan(entry):
         return entry
@@ -171,18 +126,7 @@ def recode_why_leave_household(entry):
         else:
             return np.nan
 
-def recode_binary(entry):
-    if math.isnan(entry):
-        return entry
-    #If not, recode the variable this way
-    else:
-        value = int(entry)
-        if value == 1:
-            return "YES"
-        elif value == 2:
-            return "NO"
-        else:
-            return np.nan
+
 
 def recode_sex(entry):
     if math.isnan(entry):
@@ -554,43 +498,35 @@ def recode_hours_worked_last_week_main_business_activity(entry):
         return int(entry)
     except ValueError:
         return entry
+def recode_binary(entry):
+    if math.isnan(entry):
+        return entry
+    #If not, recode the variable this way
+    else:
+        value = int(entry)
+        if value == 1:
+            return "YES"
+        elif value == 2:
+            return "NO"
+        else:
+            return np.nan
 
-recode_dict = {
-    "scheduled_interview_date": "scheduled_interview_date",
-    "phone_answer_status": "phone_answer_status",
-    "is_household_member": recode_binary,
-    "agree_to_be_interviewed": recode_binary,
-    'is_new_household_member': recode_binary,
-    'is_still_household_member': recode_binary,
-    'is_selected_farmer': recode_binary,
-    'sex': recode_sex,
-    'age': 'age',
-    'relationship_to_head': recode_relationship_to_head,
- #   'other_relationship': 'other_relationship',
-    'why_join_household': recode_why_join_household,
-    'why_leave_household': recode_why_leave_household,
-#    'other_reason_for_joining':'other_reason_for_joining',
-    'is_covid_vaccinated': recode_is_covid_vaccinated,
-    'is_available_to_respond': recode_binary,
-    'worked_for_pay_last_week': recode_binary,
-    'has_business_was_absent_last_week': recode_binary,
-    'when_expected_to_return_to_work': recode_when_expected_to_return_to_work,
-    'why_not_work_last_week': recode_why_not_work_last_week,
-#    'other_reason_not_work': 'other_reason_not_work',
-    'tried_to_earn_pay_last_month': recode_binary,
-    'how_tried_to_earn_pay_last_month': recode_how_tried_to_earn_pay_last_month,
-#   'other_way_tried_to_earn_pay_last_month': 'other_way_tried_to_earn_pay_last_month',
-    'main_activity_of_employers_business_last_week': recode_main_activity_of_employers_business_last_week,
-    'family_farm_food_fate': recode_family_farm_food_fate,
-    "hours_worked_last_week_main_business_activity": recode_hours_worked_last_week_main_business_activity,
-    'worked_december_2021': recode_binary,
-    'worked_january_2022': recode_binary,
-    'worked_february_2022': recode_binary,
-    'worked_march_2022': recode_binary,
-    'age_started_working': recode_age_started_working,
-    'is_employed': recode_binary,
-#    'years_worked_first_job': 'years_worked_first_job',
-    'why_left_first_job': recode_why_left_first_job,
-    'how_many_shots': recode_how_many_shots
 
-}
+def recode_phone_answer_status(entry):
+    if math.isnan(entry):
+        return entry
+    # If not, recode the variable this way
+    else:
+        value = int(entry)
+        if value == 1:
+            return "ANSWERED"
+        elif value == 2:
+            return "RANG BUT NOT ANSWERED"
+        elif value == 3:
+            return "NUMBER DOES NOT EXIST"
+        elif value == 4:
+            return "PHONE SWITCHED OFF"
+        else:
+            return np.nan
+
+

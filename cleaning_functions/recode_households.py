@@ -3,7 +3,7 @@ import numpy as np
 def recode_binary(entry):
     if math.isnan(entry):
         return entry
-    #If not, recode the variable this way
+    # If not, recode the variable this way
     else:
         value = int(entry)
         if value == 1:
@@ -117,6 +117,6 @@ def recode_how_getting_by_financially(entry):
         elif value == 3:
             return "FAIR"
         elif value == 4:
-            return "POORLY"
+            return "POOR"
         else:
             return np.nan
